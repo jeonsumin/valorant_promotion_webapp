@@ -1,0 +1,25 @@
+:root {
+  --point: #ff4655;
+  --point2: #f95093;
+  --txt: #fff;
+  --txtBk: #000;
+  --txtGray: #666;
+  --txtDesc: #c2c2c2;
+  --txtSurvey: #454545;
+  --surveyBtnBg: #f4f4f4;
+  --cardClearBg: #0d2023;
+  --errorTxt: #eb5757;
+  --bgBk: #000;
+  --splashTxt: #ece8e1;
+  --inputBg: #f4f4f4;
+  --mint: #66e3d9;
+  --moment1: #ff4655;
+  --moment2: #5eb0f2;
+  --moment3: #ff4655;
+  --moment4: #f1b74b;
+  --mWidth: 1120px;
+}
+
+.point_colr {
+  color: var(--point) !important;
+}
