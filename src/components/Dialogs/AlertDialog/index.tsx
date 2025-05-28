@@ -1,8 +1,8 @@
 type Props = {
-  message: string;
-  isCancel: boolean;
-  onConfirm: () => void;
-  alertClose: () => void;
+  message?: string;
+  isCancel?: boolean;
+  onConfirm?: () => void;
+  alertClose?: () => void;
 };
 export const AlertDialog = (props: Props) => {
   const { message, isCancel, onConfirm, alertClose } = props;

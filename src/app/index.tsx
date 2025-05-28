@@ -3,15 +3,14 @@ import 'assets/css/color_custom.css';
 import 'assets/css/commons.css';
 import 'assets/css/component.css';
 import 'assets/css/ui.css';
-import { Provider } from 'react-redux';
-import { store } from 'store';
 import { AppRouter } from './AppRoute/AppRouter';
 import { ModalProvider } from 'hoc/Context/ModalContext';
+import { SocketProvider } from 'hoc/Context/SocketContext';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLDivElement).render(
-  <Provider store={store}>
-    <ModalProvider>
+  <ModalProvider>
+    <SocketProvider>
       <AppRouter />
-    </ModalProvider>
-  </Provider>
+    </SocketProvider>
+  </ModalProvider>
 );

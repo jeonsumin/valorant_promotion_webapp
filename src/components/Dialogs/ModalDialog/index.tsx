@@ -3,10 +3,10 @@ import { img } from 'assets/img';
 import React, { ReactNode } from 'react';
 
 type Props = {
-  title: string;
-  isLogo: boolean;
-  body: ReactNode;
-  closeModal: () => void;
+  title?: string;
+  isLogo?: boolean;
+  body?: ReactNode;
+  closeModal?: () => void;
 };
 export const ModalDialog = (props: Props) => {
   const {title, isLogo, body, closeModal} = props;

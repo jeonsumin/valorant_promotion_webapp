@@ -21,6 +21,7 @@ import moment02Title from './moment/moment02_title.png';
 import moment04Title from './moment/moment04_title.png';
 import pcviewTitle from './pc_view_title.png';
 import onboard_1 from './onboard_1.png';
+
 export const img = {
   logo: Logo,
   icnClose: icnClose,

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FlagTitle } from 'components';
 import 'swiper/css';
@@ -8,31 +8,37 @@ import { img } from 'assets';
 import { Pagination } from 'swiper/modules';
 import { CheckIn } from 'components/Dialogs/CheckIn';
 import { useModal } from 'hoc/Context/ModalContext';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Splash } from 'views/OnBoarding/Splash';
+import { survey } from 'data/survey_data';
+
 
 export const OnBoarding = (props: any) => {
+  const location = useLocation();
+  const from = location.state?.from;
+
   const onboardRef = useRef<HTMLDivElement | null>(null);
-  const [isLastSlide, setIsLastSlide] = useState(false);
-  const { showModal } = useModal();
+  const modal = useModal();
   const navigate = useNavigate();
+
+  const [isLastSlide, setIsLastSlide] = useState(false);
+  const [isSplash, setIsSplash] = useState(true);
 
   const handleSlideChange = (swiper: any) => {
     setIsLastSlide(swiper.activeIndex === swiper.slides.length - 1);
-
-    if (onboardRef.current) onboardRef.current.scrollTop = 0;
-
-    window.scroll({
-      top: 0,
-      behavior: 'smooth',
-    });
+    if (onboardRef.current) onboardRef.current.scroll({ top: 0 });
   };
 
   const checkInModal = () => {
-    showModal({
+    modal?.showModal({
       title: '체크인',
-      body: <CheckIn goRoute={() => navigate('/space-info')} />,
+      body: <CheckIn goRoute={() => navigate(from)} />,
     });
   };
+
+  if (isSplash) {
+    return <Splash deleteSplash={setIsSplash} />;
+  }
 
   return (
     <div className='onboarding'>
@@ -56,7 +62,7 @@ export const OnBoarding = (props: any) => {
                 <p>발로란트 5주년 팝업</p>
                 <strong>
                   내가 <em className='point'>발로란트</em>를<br />
-                  플레이 하는 이유
+                  플레이하는 이유
                 </strong>
                 <p>
                   극적인 순간의 감정을 경험하고
@@ -71,28 +77,15 @@ export const OnBoarding = (props: any) => {
           </SwiperSlide>
           <SwiperSlide>
             <div className='board_con'>
-              <FlagTitle
-                pointText='0.01초 승부수'
-                description='시간은 단 7초. 숨을 죽이고, 정확한 타이밍을 노려라. 절체절명의 그 순간, 당신의 손끝이 승리를 결정한다!'
-                imgIcn='onBoardIcn1'
-              />
-              <FlagTitle
-                pointText='내가 바로 원탭 전문가'
-                description='조준점이 머리 위를 가를 때, 이미 게 임은 끝났다. 단 한 발로 판을 바꾸는, 그 짜릿함을 느껴보자!'
-                className='moment2'
-                imgIcn='onBoardIcn2'
-              />
-              <FlagTitle
-                pointText='레전드 클러치 명장면'
-                description='시야는 막혔지만, 가능성은 열려 있다. 마스터스 방콕을 뒤흔든 메테오의 클러치, 그 전율을 직접 경험하라!'
-                imgIcn='onBoardIcn3'
-              />
-              <FlagTitle
-                pointText='오늘의 야.시장 운세'
-                description='야시장에선 뭐든 가능하다. 유니크한 스킨, 극적인 순간, 지금 바로 가장 레어한 득템에 도전하자!'
-                className='moment4'
-                imgIcn='onBoardIcn4'
-              />
+              {survey.map((flag: any, index: number) => (
+                <FlagTitle
+                  key={`flag_${index}`}
+                  pointText={flag.title}
+                  description={flag.desc}
+                  imgIcn={flag.img}
+                  className={`moment${flag.moment}`}
+                />
+              ))}
             </div>
           </SwiperSlide>
           <SwiperSlide>

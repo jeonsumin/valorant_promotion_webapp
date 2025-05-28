@@ -1,18 +1,18 @@
-import { img } from 'assets';
+import { img } from 'assets/index';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FlagTitle } from 'components';
+import { FlagTitle } from 'components/index';
 
-export const Splash = () => {
+export const Splash = (props: any) => {
   const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate('/onBoarding');
+      props.deleteSplash(false);
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, [navigate]);
+  }, [props]);
   return (
     <>
       <section className='splash'>

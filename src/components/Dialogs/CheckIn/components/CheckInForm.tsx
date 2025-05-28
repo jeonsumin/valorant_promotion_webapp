@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { CheckboxField } from './CheckboxField';
 import { PersonalInfoAlert } from './PersonalInfoAlert';
-import terms from './terms_data.json';
+import terms from 'data/terms_data';
 
 type FormValues = {
-  nickname: string;
+  nick_name: string;
   phone1: string;
   phone2: string;
   phone3: string;
@@ -23,7 +23,7 @@ export function CheckInForm({ onSubmit }: CheckInFormProps) {
   const { control, register, watch, setValue, handleSubmit } =
     useForm<FormValues>({
       defaultValues: {
-        nickname: '',
+        nick_name: '',
         phone1: '',
         phone2: '',
         phone3: '',
@@ -51,10 +51,10 @@ export function CheckInForm({ onSubmit }: CheckInFormProps) {
 
   const allFieldsFilled = (): boolean => {
     const values = watch();
-    const { nickname, phone1, phone2, phone3 } = values;
+    const { nick_name, phone1, phone2, phone3 } = values;
 
     return (
-      nickname.trim() !== '' &&
+      nick_name.trim() !== '' &&
       phone1.trim() !== '' &&
       phone2.trim() !== '' &&
       phone3.trim() !== '' &&
@@ -72,10 +72,10 @@ export function CheckInForm({ onSubmit }: CheckInFormProps) {
     <>
       <form className='form round_box' onSubmit={handleSubmit(onSubmit)}>
         <div className='input_row'>
-          <label htmlFor='nickname'>닉네임</label>
+          <label htmlFor='nick_name'>닉네임</label>
           <div className='input_wrap'>
             <Controller
-              name='nickname'
+              name='nick_name'
               control={control}
               render={({ field }) => (
                 <input
@@ -150,13 +150,13 @@ export function CheckInForm({ onSubmit }: CheckInFormProps) {
               <CheckboxField
                 key={`terms_${index}`}
                 label={`${terms.title}(필수)`}
-                checked={watch(`terms${terms.id}`)}
+                checked={terms.id == 1 ? personalInfo : dataUsage}
                 onChange={(e) =>
                   handleIndividualCheck(`terms${terms.id}`, e.target.checked)
                 }
                 onLabelClick={(e) => {
                   showModal(index);
-                  handleIndividualCheck(`terms${terms.id}`,true)
+                  handleIndividualCheck(`terms${terms.id}`, true);
                 }}
               />
             ))}
@@ -171,13 +171,11 @@ export function CheckInForm({ onSubmit }: CheckInFormProps) {
           플레이하기
         </button>
       </form>
-      {isModalOpen && (
-        <PersonalInfoAlert
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          terms={modalType}
-        />
-      )}
+      <PersonalInfoAlert
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        terms={modalType}
+      />
     </>
   );
 }

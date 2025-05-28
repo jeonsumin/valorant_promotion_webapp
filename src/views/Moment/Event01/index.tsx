@@ -3,16 +3,13 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { img } from 'assets';
 import { Countdown } from './components/CountDown';
 import { ClearAlert, Header } from 'components';
-import $axios from 'utils/axios';
-import { getCookie } from 'utils/cookies';
+import { fetchEventTake } from 'utils/apis';
+import { useQueryParams } from 'hoc/useQueryParams';
 
 export const Moment01 = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const navigate = useNavigate();
-
-  const [searchParams] = useSearchParams();
-  const { lang } = useParams<string>();
-  const groupCode = searchParams.get('group-code');
+  const queryParams = useQueryParams();
 
   const [buttonText, setButtonText] = useState<string>('해체하기');
   const [startTime, setStartTime] = useState<number | null>(null);
@@ -23,40 +20,43 @@ export const Moment01 = () => {
     useState<boolean>(false);
 
   useEffect(() => {
-    console.log(lang);
-    if (!lang) {
-      $axios
-        .get(
-          `/event1_check?user_code=${getCookie('user')}&group-code=${groupCode}`
-        )
-        .then((response: any) => {
-          setIsSuccess(response.data.code !== 0);
-          //TODO: API 연동
-        });
-    }
-  }, [lang]);
+    fetchEventTake(queryParams).then((res: any) => {
+      if (res.data.code === 1) {
+        setIsSuccess(true);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (isCountdownComplete && videoRef.current) {
-      videoRef.current.play();
-      setStartTime(performance.now());
+      const video = videoRef.current;
 
-      videoRef.current.onended = () => {
-        // 실패로 네비게이트 (7초 지나면 자동 실패)
+      video
+        .play()
+        .then(() => setStartTime(performance.now()))
+        .catch((err) => {
+          console.warn('비디오 재생 실패:', err); // ✅ 비디오 재생 실패 처리
+        });
+
+      const handleEnded = () => {
         navigate(
-          `/moment-clear?moment=1&status=fail&result=0&group-code=${groupCode}`
+          `/event-clear?event_name=event1&status=fail&result=0&${queryParams}` //
         );
       };
 
-      // 7초 후 버튼을 disabled로 변경 및 텍스트 변경
+      video.onended = handleEnded;
+
       const timer = setTimeout(() => {
         setIsButtonDisabled(true);
         setButtonText('해체 실패');
-      }, 7000);
+      }, 7000); // ✅ 7초 타이머 설정
 
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+        video.onended = null; // ✅ 클린업
+      };
     }
-  }, [isCountdownComplete, navigate]);
+  }, [isCountdownComplete, navigate, queryParams]);
 
   const handleButtonClick = () => {
     if (startTime !== null && !isButtonDisabled) {
@@ -70,11 +70,11 @@ export const Moment01 = () => {
       // 성공 시 점수를 파라미터로 전달
       if (isSuccess) {
         navigate(
-          `/moment-clear?moment=1&status=success&result=${score}&group-code=${groupCode}`
+          `/event-clear?event_name=event1&status=0&result_data=${score}&event_group=${queryParams.event_group}`
         );
       } else {
         navigate(
-          `/moment-clear?moment=1&status=fail&result=0&group-code=${groupCode}`
+          `/event-clear?event_name=event1&status=1&result=&event_group=${queryParams.event_group}`
         );
       }
     }
@@ -83,12 +83,18 @@ export const Moment01 = () => {
   return (
     <div className='moment01 moment_screen has_btn'>
       <Header />
-
+      {isSuccess && (
+        <ClearAlert
+          onClick={() => {
+            navigate('/stamp');
+          }}
+        />
+      )}
       <div className='content'>
         {isStarted ? (
           <div className='main_con'>
             <div className='video_bg'>
-              <video ref={videoRef} src={img.moment01Video} muted playsInline />
+              <video ref={videoRef} src={img.moment01Video} playsInline />
             </div>
             <p className='noti_txt'>7초 직전에 해체하기를 눌러주세요.</p>
             <button
@@ -138,13 +144,7 @@ export const Moment01 = () => {
           </div>
         )}
       </div>
-      {isSuccess && (
-        <ClearAlert
-          onClick={() => {
-            navigate('/stamp');
-          }}
-        />
-      )}
+
     </div>
   );
 };

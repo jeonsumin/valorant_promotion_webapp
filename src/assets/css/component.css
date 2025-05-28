@@ -150,6 +150,7 @@ header .close_btn {
   font-size: 16px;
   letter-spacing: -0.48px;
   line-height: 160%;
+  white-space: pre-line;
 }
 .flagtitle.kr .bg_title {
   font-family: 'Paperlogy';
@@ -201,6 +202,7 @@ header .close_btn {
   align-items: center;
   justify-content: center;
   width: 100%;
+  white-space: pre-line;
 }
 .survey_item .survey_list .a_box button.on {
   background: var(--point);
@@ -266,7 +268,7 @@ header .close_btn {
   letter-spacing: -0.36px;
 }
 .stamp_wrap .card .txt_box .status {
-  margin-top: 14px;
+  margin-top: 6px;
   display: flex;
   gap: 30px;
 }
@@ -274,6 +276,10 @@ header .close_btn {
   font-size: 14px;
   color: var(--txtDesc);
 }
+.stamp_wrap .card .txt_box .status .btn .bd_btn:disabled {
+  background-color: transparent !important;
+}
+
 .stamp_wrap .card .txt_box .status .btn .bd_btn {
   border-bottom: 1px solid var(--txtDesc);
   font-weight: 700;
@@ -425,7 +431,7 @@ header .close_btn {
   max-height: calc(100vh - 86px);
   height: 100%;
   width: calc(100% - 32px);
-  margin: 66px auto 0;
+  margin: 55px auto 0;
   padding: 10px;
   text-align: left;
 }
@@ -536,22 +542,22 @@ header .close_btn {
   justify-content: center;
   flex-direction: column;
 }
-.main_con.moment1_bg {
+.main_con.event1_bg {
   background-image: url(../img/moment/moment01_complete_BG.png);
 }
-.main_con.moment2_bg {
+.main_con.event2_bg {
   background-image: url(../img/moment/moment02_complete_BG.png);
 }
 
-.event_con.moment2_bg {
+.event_con.event_bg {
   background-image: url(../img/moment/moment02_complete_BG.png);
   background-repeat: no-repeat;
   background-size: cover;
 }
-.main_con.moment3_bg {
+.main_con.event3_bg {
   background-image: url(../img/moment/moment03_complete_BG.png);
 }
-.main_con.moment4_bg {
+.main_con.event4_bg {
   background-image: url(../img/moment/moment04_complete_BG.png);
 }
 

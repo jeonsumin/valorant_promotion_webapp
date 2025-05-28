@@ -94,7 +94,7 @@ export const UTILS = {
   async asyncNetworkingWIthFileDo(
     targetURL: string,
     parameter: any,
-    callBack: any
+    callBack: any,
   ) {
     try {
       await axios
@@ -127,6 +127,12 @@ export const UTILS = {
 
     return moment(obj).format(formatter);
   },
+
+  transformToQKeys(input: Record<number, any>): Record<string, any> {
+    return Object.fromEntries(
+      Object.entries(input).map(([key, value]) => [`q${Number(key)}`, value]),
+    );
+  }
 };
 
 // const cookie = new Cookies();

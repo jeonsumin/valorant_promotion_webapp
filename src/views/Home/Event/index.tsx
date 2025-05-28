@@ -1,13 +1,13 @@
-import eventList from './event_data.json';
+import eventList from 'data/event_data.json';
 import { useModal } from 'hoc/Context/ModalContext';
 import { Event } from 'components/Dialogs/Event';
 
 export const EventScreen = () => {
-  const { showModal } = useModal();
+  const modal = useModal();
   const openModal = (item: any) => {
-    showModal({
+    modal?.showModal({
       title: item.title,
-      body:<Event/>
+      body: <Event />,
     });
   };
   return (

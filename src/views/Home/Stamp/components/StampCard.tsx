@@ -10,10 +10,12 @@ type StampCardProps = {
 };
 
 export const StampCard = (props: StampCardProps) => {
-  const { moment, title, experienceStatus, reportStatus, openSurveyModal } = props;
+  const { moment, title, experienceStatus, reportStatus, openSurveyModal } =
+    props;
   const isComplete: boolean = experienceStatus && reportStatus;
   const isHalfComplete: boolean =
     (experienceStatus && !reportStatus) || (!experienceStatus && reportStatus);
+
 
   const cardClass: string = isComplete
     ? 'card clear'
@@ -34,7 +36,7 @@ export const StampCard = (props: StampCardProps) => {
           <h2 className='title'>{title}</h2>
           <div className='status'>
             <div className='btn'>
-              <span>체험</span>
+              <span>체험 </span>
               <span className='bd_btn'>
                 {experienceStatus ? '완료' : '미완료'}
               </span>
@@ -44,7 +46,11 @@ export const StampCard = (props: StampCardProps) => {
               {reportStatus ? (
                 <span className='bd_btn'>작성완료</span>
               ) : (
-                <button onClick={openSurveyModal} className='bd_btn'>
+                <button
+                  onClick={openSurveyModal}
+                  className='bd_btn'
+                  disabled={!experienceStatus}
+                >
                   작성하기
                 </button>
               )}

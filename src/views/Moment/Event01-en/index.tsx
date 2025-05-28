@@ -8,8 +8,8 @@ export const Event01En = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [start, setStart] = useState<boolean>(false);
   const [isDefuse, setIsDefuse] = useState<boolean>(false);
-  const [currentTime, setCurrentTime] = useState<number>();
-  const [result, setResult] = useState<number | null>(0);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [result, setResult] = useState<number>(0);
 
   useEffect(() => {
     if (isDefuse) {
@@ -32,8 +32,8 @@ export const Event01En = () => {
     const diff = (stopTimer - currentTime) / 1000;
     const result = (7 - diff).toFixed(3);
 
-    setCurrentTime(null);
-    setResult(result);
+    setCurrentTime(0);
+    setResult(Number(result));
   };
 
   if (result > 0)
@@ -41,14 +41,14 @@ export const Event01En = () => {
       <div className='moment_screen has_btn not_header'>
         <div className={'content'}>
           <ScoreLayout
-            momentType={1}
+            momentType={'event1'}
             title={result <= 7 ? `${result}s` : 'Defuse Failed'}
             subTitle={
               result <= 7
                 ? 'Spike Successfully defused!'
                 : 'Defuse attempt <br/> unsuccessful.'
             }
-            rank={false}
+            rank={''}
           />
         </div>
       </div>

@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { img } from 'assets';
 import { Link } from 'react-router-dom';
+import { UTILS } from 'utils/utils';
 
 type Props = {
   coupons: any[];
@@ -16,7 +17,7 @@ export const CouponCard = (props: Props) => {
     setCurrentIndex(swiper.activeIndex + 1);
   };
 
-  if (coupons.length === 0)
+  if (UTILS.isNull(coupons))
     return (
       <div className='cpu_list'>
         <div className='empty_data'>쿠폰함이 비었습니다.</div>
@@ -41,7 +42,11 @@ export const CouponCard = (props: Props) => {
                     <div className='cpu_num'>
                       <span>{coupon.code}</span>
                     </div>
-                    <Link to='https://riot.com/4mlbi0i' target='_blank' className='link_btn'>
+                    <Link
+                      to='https://riot.com/4mlbi0i'
+                      target='_blank'
+                      className='link_btn'
+                    >
                       이벤트 페이지 방문하기
                     </Link>
                   </div>

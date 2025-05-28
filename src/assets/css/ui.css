@@ -490,14 +490,18 @@ button:disabled {
 
 .moment_screen .video_bg video {
   width: 100%;
-  height: 100%;
+  height: 121%;
   max-width: none;
   object-fit: cover;
+  margin-top: -60px;
 }
 
 @media screen and (min-width: 780px) {
   .moment_screen .video_bg video {
-    object-fit: contain;
+    object-fit: cover;
+    width:100%;
+    height:100%;
+    margin-top: 0;
   }
 }
 .moment_screen .dimm_bg {
@@ -536,7 +540,7 @@ button:disabled {
   display: block;
 }
 .moment_screen .intro .txt_box .desc {
-  font-size: 22px;
+  font-size: 18px;
   color: var(--txt);
 }
 .moment_screen .intro .txt_box .arrow_box {
@@ -694,3 +698,9 @@ button:disabled {
 .bottom_btn_wrap {display: flex; position: fixed; width: 100%; bottom:0; height: 60px; background-color: var(--point); color:var(--bgBk); border-top:1px solid #000;}
 .bottom_btn_wrap button {text-align: center;justify-content: center;width: 100%;color:var(--txt);font-weight: 600;}
 .bottom_btn_wrap .download {width:134px; background-color: var(--txt); color: var(--bgBk);}
+
+.survey_modal{ background-color: var(--bgBk)}
+.survey_modal .info_warp {height: calc(100vh - 60px); text-align: center; padding-top: 16px;padding-bottom: 70px;}
+.survey_modal .info_warp .desc_box {display: flex; flex-direction: column; gap:20px; background-color: var(--txt);margin: 0 16px;  height: 100%;border-radius: 10px; padding:32px 11px;}
+.survey_modal .info_warp h1 {color:var(--bgBk)}
+.survey_modal .info_warp .alert_content{color:#666; padding: 0 10px; text-align: start;}

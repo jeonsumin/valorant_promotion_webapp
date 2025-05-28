@@ -1,7 +1,7 @@
 import { Header, NavigateBar } from 'components';
 import { Outlet } from 'react-router-dom';
 
-export const Main = () => {
+export const Home = () => {
   return (
     <>
       <section id='wrap'>

@@ -1,7 +1,7 @@
 import { img } from 'assets';
 
 type ScoreLayoutProps = {
-  momentType: number;
+  momentType: string;
   title: string;
   subTitle: string;
   rank: string;
@@ -11,7 +11,7 @@ export const ScoreLayout = (props: ScoreLayoutProps) => {
   const { momentType, title, subTitle, rank } = props;
 
   return (
-    <div className={`main_con moment${momentType}_bg score`}>
+    <div className={`main_con ${momentType}_bg score`}>
       <div className='score_layout'>
         {title && (
           <div className='record_box'>

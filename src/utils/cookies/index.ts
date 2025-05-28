@@ -12,8 +12,6 @@ export const setCookie = (name: string, value: any, options?: any) => {
   const option = {
     path:"/",
     expires: expires,
-    secure: true,
-    sameSite: 'lax',
     ...options
   }
   return  cookies.set(name, value, { ...option });

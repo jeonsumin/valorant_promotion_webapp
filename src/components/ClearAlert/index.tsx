@@ -3,7 +3,7 @@ import { img } from 'assets';
 
 type Props = {
   title?: string;
-  moment?: number;
+  moment?: string;
   onClick: () => void;
 };
 
@@ -28,6 +28,7 @@ export const ClearAlert = (props: Props) => {
         ) : (
 
           <div className={'txt'}>
+            <h2 className='moment'>{`Event Zone ${moment}`}</h2>
             <p className='title'>{title}</p>
 
             <div className='img_box'>

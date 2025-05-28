@@ -43,7 +43,7 @@ export const Loading = (props: Props) => {
           className='loading_bar'
           style={{
             border: '10px solid #f3f3f3',
-            borderTop: '10px solid #3498db',
+            borderTop: '10px solid #ff4655',
             borderRadius: '50%',
             width: '70px',
             height: '70px',
