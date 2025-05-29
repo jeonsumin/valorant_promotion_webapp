@@ -83,7 +83,7 @@ export const OnBoarding = (props: any) => {
                   pointText={flag.title}
                   description={flag.desc}
                   imgIcn={flag.img}
-                  className={`moment${flag.moment}`}
+                  className={`${flag.moment}`}
                 />
               ))}
             </div>
@@ -105,7 +105,7 @@ export const OnBoarding = (props: any) => {
                 </strong>
                 <div>
                   <p className='noti point_colr mb10'>
-                    스탬프 2개 이상 적립 시 플레이어카드가 제공됩니다.
+                    스탬프 2개 이상 적립 시 플레이어 카드가 제공됩니다.
                   </p>
                   <p className='noti'>
                     *체크인이 풀렸을 경우 동일한 연락처를 <br /> 재 입력하여

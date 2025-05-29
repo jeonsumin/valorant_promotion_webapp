@@ -1,6 +1,5 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { useRef } from 'react';
-import { CheckDevice } from 'components/CheckDevice';
 import { Event01En, Moment01, Moment02, Moment04, MomentClear } from 'views/Moment';
 import { OnBoarding } from 'views/OnBoarding';
 import { Promotion } from 'views/Promotion';
@@ -34,7 +33,10 @@ export const AppRouter = () => {
           <Route path="/event1" element={<Moment01 />} />
           <Route path="/event2" element={<Moment02 />} />
           <Route path="/event4" element={<Moment04 />} />
+
+          <Route path="*" element={<Navigate to={"/"} replace />}/>
         </Route>
+
       </Routes>
     </BrowserRouter>
   );

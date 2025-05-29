@@ -4,13 +4,13 @@ import { Certification } from 'components/Dialogs/Certification';
 import { img } from 'assets/img';
 import { ClearAlert } from 'components/ClearAlert';
 import { useNavigate } from 'react-router-dom';
-import { fetchCertCode, fetchEventTake } from 'utils/apis';
 import { useQueryParams } from 'hoc/useQueryParams';
 import { useWebSocket } from 'hoc/Context/SocketContext';
+import $axios from 'utils/axios';
+import { getCookie } from 'utils/cookies';
 
 export const Moment02 = () => {
   const modal = useModal();
-
 
   const queryParam = useQueryParams();
   const socket = useWebSocket();
@@ -19,25 +19,42 @@ export const Moment02 = () => {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   useEffect(() => {
-    fetchEventTake(queryParam).then((response: any) => {
-      if (response.data.code == 0) {
+    $axios.post('/event_take_check',{...queryParam,user_code: getCookie("user")})
+      .then((response: any) => {
+        setIsSuccess(response.data.code === 1)
+      if (response.data?.code == 0) {
         const certParam = {
           ...queryParam,
           event_group: `ex_${queryParam.event_group}`,
         };
-        fetchCertCode(queryParam).then((response: any) => {
+
+        $axios.post('/cert_code',{...queryParam,user_code: getCookie("user")}).then((response: any) => {
           if (response.data.code == 1) return navigate('/stamp');
 
-          socket?.connect();
-          //TODO: socket receive 받으면 registerdUser 호출
-          // socket?.registeredUsers('experience_user', certParam.event_group );
-
+          socket?.onOff();
+          socket?.registeredUsers('experience_user', certParam.event_group);
           isOtpModal(String(response.data.cert_code));
+
         });
       }
     });
-
+    return () => { socket?.disconnect}
   }, []);
+  useEffect(() => {
+    const eventResult = socket?.messages;
+
+    const isExperience = eventResult.filter( (f: any) => f.code === 'succ' ).length;
+    const finished: any = eventResult.filter((f: any) => f.type == "event_finish").at(0);
+
+    if (isExperience > 0) modal?.allClear();
+
+    if (finished) {
+      navigate(
+        `/event-clear?event_name=event2&status=1&result_data=${finished.result}&rank=${finished.rank}&event_group=${queryParam.event_group}`
+      );
+
+    }
+  }, [socket.messages]);
 
   const isOtpModal = (otp: string) => {
     modal?.showModal({
@@ -50,7 +67,7 @@ export const Moment02 = () => {
   };
 
   return (
-    <div className={`event_con moment2_bg`}>
+    <div className={`event_con event_bg`}>
       {code == 0 && (
         <>
           <div className={'experience'}>

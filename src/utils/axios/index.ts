@@ -9,12 +9,10 @@ const $axios = axios.create({
 $axios.interceptors.response.use(
   response => response.data,
   error => Promise.reject(error)
-)
+);
 
 export const createApi = <T>(path: string, params: any): Promise<T> => {
   return $axios.post(path, { ...params });
 };
-
-
 
 export default $axios;

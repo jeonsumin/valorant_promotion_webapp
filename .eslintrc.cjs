@@ -31,6 +31,7 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': 'off',
     '@typescript-eslint/no-empty-interface': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@ts-expect-error': 'off',
   },
   overrides: [
     {

@@ -9,6 +9,7 @@ import { review, survey } from 'data/survey_data';
 type Props = {
   momentType: string;
   isClear?: string;
+  fetchData: () => void;
 };
 export const Survey = (props: Props) => {
   const { momentType, isClear } = props;
@@ -35,12 +36,12 @@ export const Survey = (props: Props) => {
 
     const result = utils.transformToQKeys(selectedAnswers);
     setSubmitData((prev) => ({ ...prev, ...result }));
-
   }, [selectedAnswers, list]);
 
   const updateReport = () => {
     updateSurvey(submitData).then((response: any) => {
-      if (response.data.code == 0 ) setClear('Y')
+      if (response.data.code == 0) setClear('Y');
+      props.fetchData();
     });
   };
 

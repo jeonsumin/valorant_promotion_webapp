@@ -17,22 +17,9 @@ export const Promotion = () => {
           <img src={img.logo} alt='' />
         </div>
         <div className='txt'>
-          <p>해당 사이트는</p>
           <div className='img_box'>
-            <img src={img.pcviewTitle} alt='' />
+            <img src={img.promotion} alt='' />
           </div>
-        </div>
-        <div className='flag_box'>
-          <FlagTitle
-            title='오픈기간'
-            description='2025. 06. 02(월) ~ 06. 22(일)'
-            className='kr'
-          />
-          <FlagTitle
-            title='운영장소'
-            description='DDP SHOWROOM'
-            className='kr'
-          />
         </div>
       </div>
     </div>

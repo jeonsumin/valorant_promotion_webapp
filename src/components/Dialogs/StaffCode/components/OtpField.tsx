@@ -34,7 +34,6 @@ export const OtpField = ({ onComplete }: OtpFieldProps) => {
               margin: '8px',
               fontSize: '18px',
               textAlign: 'center',
-              border: '1px solid var(--point)',
               borderRadius: '4px',
             }}
           />

@@ -20,6 +20,7 @@ import momentClear from './moment/moment_clear.png';
 import moment02Title from './moment/moment02_title.png';
 import moment04Title from './moment/moment04_title.png';
 import pcviewTitle from './pc_view_title.png';
+import promotion from './promotion.png';
 import onboard_1 from './onboard_1.png';
 
 export const img = {
@@ -40,6 +41,7 @@ export const img = {
   momentClear: momentClear,
   moment02Title: moment02Title,
   pcviewTitle: pcviewTitle,
+  promotion: promotion,
   moment04Title: moment04Title,
   onboard_1: onboard_1,
   onBoardIcn1: onBoardIcn1,

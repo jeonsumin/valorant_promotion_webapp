@@ -1,7 +1,11 @@
 import { OtpField } from './components/OtpField';
 import React, { useState } from 'react';
 
-export const StaffCode = () => {
+type Props = {
+  checkOtp: (data:string) => void;
+};
+
+export const StaffCode = (props: Props) => {
   const [isComplete, setIsComplete] = useState(false);
   const [otpValue, setOtpValue] = useState('');
 
@@ -25,12 +29,12 @@ export const StaffCode = () => {
             미션 클리어를 위해 코드를 입력해주세요.
           </p>
           <OtpField onComplete={handleOtpComplete} />
-          <p className='error'>※ 코드가 올바르지 않습니다.</p>
+          {/*<p className='error'>※ 코드가 올바르지 않습니다.</p>*/}
         </div>
         <button
           className='chk_submit'
           disabled={!isComplete}
-          onClick={handleSubmit}
+          onClick={() => props.checkOtp(otpValue)}
         ></button>
       </div>
     </div>

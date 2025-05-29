@@ -13,7 +13,6 @@ export const CheckIn = (props: Props) => {
 
   const handleSubmit = (data: any) => {
     const user_ph = `${data.phone1}-${data.phone2}-${data.phone3}`;
-
     const user = { ...data, phone_num: user_ph, step: 1 };
 
     userJoin(user);
@@ -35,7 +34,7 @@ export const CheckIn = (props: Props) => {
           message: `체크인한 이력이 있습니다. 계속하시겠습니까?`,
           isCancel: true,
           onConfirm: () =>
-            checkInAlreadyUser({ ...user, step: response.data.step }),
+            checkInAlreadyUser({ ...user, step: response.step }),
         });
         return;
       }

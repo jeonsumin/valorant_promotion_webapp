@@ -405,13 +405,12 @@ button:disabled {
   bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
+  width: 22%;
   height: 80px;
   background-image: url(../img/icn/btn_check.svg);
+  background-repeat: no-repeat;
 }
-.chk_submit:disabled {
-  background-color: transparent !important;
-  opacity: 0.5;
+.chk_submit:disabled {background-color: transparent !important;background-image:url('../img/btn_circle_disabled.png'); background-repeat: no-repeat;
 }
 
 /* 감정 리포트 */
@@ -677,6 +676,7 @@ button:disabled {
   justify-content: center;
   gap: 90px;
   height: 100%;
+  zoom:0.5;
 }
 .pcview .kv_box p {
   margin-bottom: 10px;
@@ -703,4 +703,4 @@ button:disabled {
 .survey_modal .info_warp {height: calc(100vh - 60px); text-align: center; padding-top: 16px;padding-bottom: 70px;}
 .survey_modal .info_warp .desc_box {display: flex; flex-direction: column; gap:20px; background-color: var(--txt);margin: 0 16px;  height: 100%;border-radius: 10px; padding:32px 11px;}
 .survey_modal .info_warp h1 {color:var(--bgBk)}
-.survey_modal .info_warp .alert_content{color:#666; padding: 0 10px; text-align: start;}
+.survey_modal .info_warp .alert_content{color:#666; padding: 0 10px; text-align: start;line-height: 160%;}

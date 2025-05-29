@@ -1,2 +1,2 @@
 export { ClearLayout } from './ClearLayout';
-export { StampCard} from './StampCard';
+export { StampCard } from './StampCard';

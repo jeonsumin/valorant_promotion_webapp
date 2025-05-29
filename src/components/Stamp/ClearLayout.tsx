@@ -11,13 +11,14 @@ type Props = {
 export const ClearLayout = (props: Props) => {
   const { data, onSurvey, onStaffCode, onCoupon } = props;
 
-  const pass = data.pass === 'Y';
-  const survey = data.finish_survey === 'N';
   const [result, setResult] = useState<any | null>(null);
+  const pass = data.pass === 'N'; // pass == Y &&  직권 QR
+  const survey = data.finish_survey === 'N';
 
   useEffect(() => {
-    const str = (pass && 'all-clear') || (survey && 'complete');
+    let str = pass && 'clear' && survey && 'complete';
 
+    str = 'all-clear';
     setResult(successMant.find((f: any) => f.type == str));
   }, [data]);
 
@@ -31,12 +32,12 @@ export const ClearLayout = (props: Props) => {
         <p dangerouslySetInnerHTML={{ __html: result.desc }}></p>
       </div>
       <div className='btn_wrap flex-wrap point_color'>
-        {survey && (
+        {!survey && (
           <button onClick={() => onStaffCode()} className='bd_btn'>
             스탭 코드 입력
           </button>
         )}
-        {pass && (
+        {!pass && (
           <button onClick={() => onSurvey()} className='bd_btn'>
             만족도 조사
           </button>

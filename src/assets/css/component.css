@@ -125,10 +125,10 @@ header .close_btn {
   justify-content: center;
   font-weight: 700;
 }
-.flagtitle.moment2 .bg_title {
+.flagtitle.event2 .bg_title {
   background-image: url(../img/txt_bg_2.png);
 }
-.flagtitle.moment4 .bg_title {
+.flagtitle.event4 .bg_title {
   background-image: url(../img/txt_bg_4.png);
 }
 .flagtitle .hashtag {
@@ -139,10 +139,10 @@ header .close_btn {
   font-size: 22px;
   font-weight: 700;
 }
-.flagtitle.moment2 .point_txt {
+.flagtitle.event2 .point_txt {
   color: var(--moment2);
 }
-.flagtitle.moment4 .point_txt {
+.flagtitle.event4 .point_txt {
   color: var(--moment4);
 }
 .flagtitle .desc {
@@ -429,10 +429,9 @@ header .close_btn {
   border-radius: 10px;
   overflow: auto;
   max-height: calc(100vh - 86px);
-  height: 100%;
   width: calc(100% - 32px);
   margin: 55px auto 0;
-  padding: 10px;
+  padding: 22px 10px;
   text-align: left;
 }
 .full_alert .terms_scroll p {
@@ -547,6 +546,8 @@ header .close_btn {
 }
 .main_con.event2_bg {
   background-image: url(../img/moment/moment02_complete_BG.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .event_con.event_bg {

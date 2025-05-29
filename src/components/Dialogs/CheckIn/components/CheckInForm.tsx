@@ -1,34 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { CheckboxField } from './CheckboxField';
 import { PersonalInfoAlert } from './PersonalInfoAlert';
 import terms from 'data/terms_data';
 
-type FormValues = {
-  nick_name: string;
-  phone1: string;
-  phone2: string;
-  phone3: string;
-  user_ph: string;
-  terms1: boolean;
-  terms2: boolean;
-  allChecked: boolean;
-};
-
 type CheckInFormProps = {
-  onSubmit: (data: FormValues) => void;
+  onSubmit: (data: any) => void;
 };
 
 export function CheckInForm({ onSubmit }: CheckInFormProps) {
-  const { control, register, watch, setValue, handleSubmit } =
-    useForm<FormValues>({
-      defaultValues: {
-        nick_name: '',
-        phone1: '',
-        phone2: '',
-        phone3: '',
-      },
-    });
+  const { register, watch, setValue, handleSubmit, setFocus } = useForm();
 
   const personalInfo = watch('terms1');
   const dataUsage = watch('terms2');
@@ -54,10 +35,10 @@ export function CheckInForm({ onSubmit }: CheckInFormProps) {
     const { nick_name, phone1, phone2, phone3 } = values;
 
     return (
-      nick_name.trim() !== '' &&
-      phone1.trim() !== '' &&
-      phone2.trim() !== '' &&
-      phone3.trim() !== '' &&
+      nick_name !== '' &&
+      phone1 !== '' &&
+      phone2 !== '' &&
+      phone3 !== '' &&
       personalInfo &&
       dataUsage
     );
@@ -74,17 +55,11 @@ export function CheckInForm({ onSubmit }: CheckInFormProps) {
         <div className='input_row'>
           <label htmlFor='nick_name'>닉네임</label>
           <div className='input_wrap'>
-            <Controller
-              name='nick_name'
-              control={control}
-              render={({ field }) => (
-                <input
-                  type='text'
-                  placeholder='최대 8자 입력 가능합니다.'
-                  maxLength={8}
-                  {...field}
-                />
-              )}
+            <input
+              type='text'
+              placeholder='최대 8자 입력 가능합니다.'
+              maxLength={8}
+              {...register('nick_name')}
             />
           </div>
         </div>
@@ -92,49 +67,31 @@ export function CheckInForm({ onSubmit }: CheckInFormProps) {
         <div className='input_row'>
           <label htmlFor='phone'>연락처</label>
           <div className='input_wrap'>
-            <Controller
-              key='phone1'
-              name='phone1'
-              control={control}
-              render={({ field }) => (
-                <input
-                  type='tel'
-                  placeholder={'010'}
-                  maxLength={3}
-                  {...field}
-                  value={typeof field.value === 'string' ? field.value : ''}
-                />
-              )}
+            <input
+              type='tel'
+              placeholder={'010'}
+              maxLength={3}
+              {...register('phone1')}
+              onChange={(e) => {
+                if (e.target.value.length === 3) setFocus('phone2');
+              }}
             />
             -
-            <Controller
-              key='phone2'
-              name='phone2'
-              control={control}
-              render={({ field }) => (
-                <input
-                  type='tel'
-                  placeholder={'1234'}
-                  maxLength={4}
-                  {...field}
-                  value={typeof field.value === 'string' ? field.value : ''}
-                />
-              )}
+            <input
+              type='tel'
+              placeholder={'1234'}
+              maxLength={4}
+              {...register('phone2', {})}
+              onChange={(e) => {
+                if (e.target.value.length === 4) setFocus('phone3');
+              }}
             />
             -
-            <Controller
-              key='phone3'
-              name='phone3'
-              control={control}
-              render={({ field }) => (
-                <input
-                  type='tel'
-                  placeholder={'5678'}
-                  maxLength={4}
-                  {...field}
-                  value={typeof field.value === 'string' ? field.value : ''}
-                />
-              )}
+            <input
+              type='tel'
+              placeholder={'5678'}
+              maxLength={4}
+              {...register('phone3')}
             />
           </div>
         </div>
@@ -151,6 +108,7 @@ export function CheckInForm({ onSubmit }: CheckInFormProps) {
                 key={`terms_${index}`}
                 label={`${terms.title}(필수)`}
                 checked={terms.id == 1 ? personalInfo : dataUsage}
+                className={'under'}
                 onChange={(e) =>
                   handleIndividualCheck(`terms${terms.id}`, e.target.checked)
                 }

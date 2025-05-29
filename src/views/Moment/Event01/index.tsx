@@ -40,7 +40,7 @@ export const Moment01 = () => {
 
       const handleEnded = () => {
         navigate(
-          `/event-clear?event_name=event1&status=fail&result=0&${queryParams}` //
+          `/event-clear?event_name=event1&status=0&result_data=&${queryParams}`
         );
       };
 
@@ -59,7 +59,8 @@ export const Moment01 = () => {
   }, [isCountdownComplete, navigate, queryParams]);
 
   const handleButtonClick = () => {
-    if (startTime !== null && !isButtonDisabled) {
+    console.log('puse');
+    /*if (startTime !== null && !isButtonDisabled) {
       const currentTime = performance.now();
       const timeDifference = (currentTime - startTime) / 1000;
 
@@ -70,14 +71,14 @@ export const Moment01 = () => {
       // 성공 시 점수를 파라미터로 전달
       if (isSuccess) {
         navigate(
-          `/event-clear?event_name=event1&status=0&result_data=${score}&event_group=${queryParams.event_group}`
+          `/event-clear?event_name=event1&status=1&result_data=${score}&event_group=${queryParams.event_group}`
         );
       } else {
         navigate(
-          `/event-clear?event_name=event1&status=1&result=&event_group=${queryParams.event_group}`
+          `/event-clear?event_name=event1&status=0&result_data=&event_group=${queryParams.event_group}`
         );
       }
-    }
+    }*/
   };
 
   return (
@@ -124,7 +125,7 @@ export const Moment01 = () => {
                   정확하게 맞춰보세요!
                 </strong>
                 <p className='desc'>
-                  7초보다 빠르게 누를 경우는 실패 입니다.
+                  7초보다 늦게 누를 경우는 실패 입니다.
                   <br />
                   (1회만 참여 가능, 재도전 불가능)
                 </p>
