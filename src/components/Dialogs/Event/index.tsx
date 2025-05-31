@@ -1,9 +1,19 @@
-export const Event = () => {
-  return <div className='stack_screen'>
+import { useEffect } from 'react';
 
-    <div className={"bottom_btn_wrap"}>
-      <button className={"download"}>다운받기</button>
-      <button>홈페이지 방문하기</button>
+export const Event = (props: any) => {
+  useEffect(() => {
+    console.log('props ', props);
+  }, []);
+  return (
+    <div className='stack_screen'>
+      <div className={'event_warp'}>
+        <div className={"img_box"}>
+        <img src={props.img} alt="" />
+        </div>
+      </div>
+      <div className={'bottom_btn_wrap'}>
+        <button>홈페이지 방문하기</button>
+      </div>
     </div>
-  </div>;
+  );
 };

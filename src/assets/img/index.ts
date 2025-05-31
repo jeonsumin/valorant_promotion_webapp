@@ -22,6 +22,9 @@ import moment04Title from './moment/moment04_title.png';
 import pcviewTitle from './pc_view_title.png';
 import promotion from './promotion.png';
 import onboard_1 from './onboard_1.png';
+import instagramBg from './instagram_event.jpg';
+import spacial from './spacial_event.png';
+import day from './day_event.png';
 
 export const img = {
   logo: Logo,
@@ -48,4 +51,8 @@ export const img = {
   onBoardIcn2: onBoardIcn2,
   onBoardIcn3: onBoardIcn3,
   onBoardIcn4: onBoardIcn4,
+
+  instagramBg: instagramBg,
+  spacialBg: spacial,
+  dayBg: day,
 };

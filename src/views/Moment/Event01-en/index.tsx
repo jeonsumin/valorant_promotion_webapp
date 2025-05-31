@@ -67,7 +67,7 @@ export const Event01En = () => {
               />
             )}
             <div className='video_bg'>
-              <video ref={videoRef} src={img.moment01Video} muted playsInline />
+              <video ref={videoRef} src={img.moment01Video} playsInline />
             </div>
             <p className='noti_txt'>
               Hit defuse right before

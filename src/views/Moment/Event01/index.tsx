@@ -3,8 +3,9 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { img } from 'assets';
 import { Countdown } from './components/CountDown';
 import { ClearAlert, Header } from 'components';
-import { fetchEventTake } from 'utils/apis';
 import { useQueryParams } from 'hoc/useQueryParams';
+import $axios from 'utils/axios';
+import { getCookie } from 'utils/cookies';
 
 export const Moment01 = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -20,7 +21,7 @@ export const Moment01 = () => {
     useState<boolean>(false);
 
   useEffect(() => {
-    fetchEventTake(queryParams).then((res: any) => {
+    $axios.post("/event_take_check",{...queryParams, user_code:getCookie("user")}).then((res: any) => {
       if (res.data.code === 1) {
         setIsSuccess(true);
       }
@@ -29,40 +30,32 @@ export const Moment01 = () => {
 
   useEffect(() => {
     if (isCountdownComplete && videoRef.current) {
-      const video = videoRef.current;
+      videoRef.current.play();
+      setStartTime(performance.now());
 
-      video
-        .play()
-        .then(() => setStartTime(performance.now()))
-        .catch((err) => {
-          console.warn('비디오 재생 실패:', err); // ✅ 비디오 재생 실패 처리
-        });
-
-      const handleEnded = () => {
+      videoRef.current.onended = () => {
+        // 실패로 네비게이트 (7초 지나면 자동 실패)
         navigate(
           `/event-clear?event_name=event1&status=0&result_data=&${queryParams}`
         );
       };
 
-      video.onended = handleEnded;
-
+      // 7초 후 버튼을 disabled로 변경 및 텍스트 변경
       const timer = setTimeout(() => {
         setIsButtonDisabled(true);
         setButtonText('해체 실패');
-      }, 7000); // ✅ 7초 타이머 설정
+      }, 7000);
 
-      return () => {
-        clearTimeout(timer);
-        video.onended = null; // ✅ 클린업
-      };
+      return () => clearTimeout(timer);
     }
-  }, [isCountdownComplete, navigate, queryParams]);
+  }, [isCountdownComplete, navigate]);
+
 
   const handleButtonClick = () => {
-    console.log('puse');
-    /*if (startTime !== null && !isButtonDisabled) {
+    if (startTime !== null && !isButtonDisabled) {
       const currentTime = performance.now();
       const timeDifference = (currentTime - startTime) / 1000;
+
 
       // 성공 여부 결정 (7초 이하)
       const isSuccess = timeDifference <= 7;
@@ -78,7 +71,7 @@ export const Moment01 = () => {
           `/event-clear?event_name=event1&status=0&result_data=&event_group=${queryParams.event_group}`
         );
       }
-    }*/
+    }
   };
 
   return (

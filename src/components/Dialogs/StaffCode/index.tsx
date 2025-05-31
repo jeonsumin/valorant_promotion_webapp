@@ -14,9 +14,6 @@ export const StaffCode = (props: Props) => {
     setIsComplete(true);
   };
 
-  const handleSubmit = () => {
-    console.log('입력된 OTP:', otpValue);
-  };
 
   return (
     <div className='stack_screen'>

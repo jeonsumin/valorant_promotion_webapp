@@ -11,7 +11,7 @@ type Props = {
 export const ModalDialog = (props: Props) => {
   const {title, isLogo, body, closeModal} = props;
   return (
-    <div className='modal_wrap'>
+    <div className='full_alert'>
       <div className={`modal_header ${isLogo ? 'logo' : ''}`}>
         {isLogo ? (
           <img className='title' src={img.headerLogo} alt='Logo' />

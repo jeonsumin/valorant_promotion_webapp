@@ -1,4 +1,4 @@
-import eventList from 'data/event_data.json';
+import { eventList } from 'data/event_data';
 import { useModal } from 'hoc/Context/ModalContext';
 import { Event } from 'components/Dialogs/Event';
 
@@ -7,7 +7,7 @@ export const EventScreen = () => {
   const openModal = (item: any) => {
     modal?.showModal({
       title: item.title,
-      body: <Event />,
+      body: <Event img={item.img} />,
     });
   };
   return (

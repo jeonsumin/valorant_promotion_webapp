@@ -1,34 +1,25 @@
-import { useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
 import { img } from 'assets';
-import { Link } from 'react-router-dom';
-import { UTILS } from 'utils/utils';
 
-type Props = {
-  coupons: any;
-};
-
-export const CouponCard = (props: Props) => {
-  const { coupons } = props;
-  const [currentIndex, setCurrentIndex] = useState(1);
-
-  const handleSlideChange = (swiper: any) => {
-    setCurrentIndex(swiper.activeIndex + 1);
-  };
-
+export const CouponCard = ({ coupons }: any) => {
   return (
     <div className='cpu_list'>
-      <Swiper
-        slidesPerView={1}
-        pagination={{ clickable: true }}
-        className='coupon_swiper'
-        onSlideChange={handleSlideChange}
-      >
-          <SwiperSlide >
-
-          </SwiperSlide>
-      </Swiper>
+      {coupons == null ? (
+        <div className='empty_data'>쿠폰함이 비었습니다.</div>
+      ) : (
+        <div className='cpu_con'>
+          <div className='bg'>
+            <img src={img.couponBg} alt='쿠폰 배경' />
+            <div className='cpu_card'>
+              <div className='top'>
+                <div className='cpu_num'>
+                  <span>{coupons.COUPON_CODE}</span>
+                </div>
+                <button className='link_btn'>이벤트 페이지 방문하기</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

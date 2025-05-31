@@ -31,6 +31,8 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [alertOption, setAlertOption] = useState<AlertOptions | null>(null);
 
   const showModal = (option: ModalOptions) => {
+    document.getElementById('root')?.classList.add("base");
+
     setModalOption({ ...option });
   };
 

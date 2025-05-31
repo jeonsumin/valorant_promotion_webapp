@@ -130,7 +130,7 @@ export const UTILS = {
 
   transformToQKeys(input: Record<number, any>): Record<string, any> {
     return Object.fromEntries(
-      Object.entries(input).map(([key, value]) => [`q${Number(key)}`, value]),
+      Object.entries(input).map(([key, value]) => [`q${Number(key)}`, value.toString() ]),
     );
   }
 };

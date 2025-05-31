@@ -7,7 +7,7 @@ import * as path from 'node:path';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), vitePluginSvgr(), tsconfigpaths()],
-  base: './',
+  base: '/',
   resolve: {
     alias: {
       assets: path.resolve(__dirname, 'src/assets'),
@@ -18,8 +18,8 @@ export default defineConfig({
     },
   },
   server: {
-    host: '0.0.0.0',
-    port: 3000,
+    host:'0.0.0.0',
+    port: 4000,
   },
   build: {
     minify: 'esbuild',

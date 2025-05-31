@@ -4,7 +4,7 @@ type ScoreLayoutProps = {
   momentType: string;
   title: string;
   subTitle: string;
-  rank: string;
+  rank?: string;
 };
 
 export const ScoreLayout = (props: ScoreLayoutProps) => {

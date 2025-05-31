@@ -19,32 +19,45 @@ export const Moment02 = () => {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   useEffect(() => {
-    $axios.post('/event_take_check',{...queryParam,user_code: getCookie("user")})
+    $axios
+      .post('/event_take_check', {
+        ...queryParam,
+        user_code: getCookie('user'),
+      })
       .then((response: any) => {
-        setIsSuccess(response.data.code === 1)
-      if (response.data?.code == 0) {
-        const certParam = {
-          ...queryParam,
-          event_group: `ex_${queryParam.event_group}`,
-        };
+        setIsSuccess(response.data.code === 1);
+        if (response.data?.code == 0) {
+          const certParam = {
+            ...queryParam,
+            event_group: `ex_${queryParam.event_group}`,
+          };
 
-        $axios.post('/cert_code',{...queryParam,user_code: getCookie("user")}).then((response: any) => {
-          if (response.data.code == 1) return navigate('/stamp');
+          $axios
+            .post('/cert_code', { ...queryParam, user_code: getCookie('user') })
+            .then((response: any) => {
+              if (response.data.code == 1) {
+                modal?.showAlert({ message: '1분간 이용할 수 없습니다.' ,onConfirm: () => {navigate('/stamp');}});
+                return;
+              }
 
-          socket?.onOff();
-          socket?.registeredUsers('experience_user', certParam.event_group);
-          isOtpModal(String(response.data.cert_code));
+              socket.connected(certParam.event_group);
+              isOtpModal(String(response.data.cert_code));
+            });
+        }
+      });
 
-        });
-      }
-    });
-    return () => { socket?.disconnect}
   }, []);
+
   useEffect(() => {
     const eventResult = socket?.messages;
 
-    const isExperience = eventResult.filter( (f: any) => f.code === 'succ' ).length;
-    const finished: any = eventResult.filter((f: any) => f.type == "event_finish").at(0);
+    console.log(eventResult);
+    const isExperience = eventResult.filter(
+      (f: any) => f.code === 'succ'
+    ).length;
+    const finished: any = eventResult
+      .filter((f: any) => f.type == 'event_finish')
+      .at(0);
 
     if (isExperience > 0) modal?.allClear();
 
@@ -52,15 +65,15 @@ export const Moment02 = () => {
       navigate(
         `/event-clear?event_name=event2&status=1&result_data=${finished.result}&rank=${finished.rank}&event_group=${queryParam.event_group}`
       );
-
     }
-  }, [socket.messages]);
+  }, [socket?.messages]);
 
   const isOtpModal = (otp: string) => {
     modal?.showModal({
       title: '인증번호',
       body: <Certification bg={img.moment02Title} otpCode={otp} />,
       onClick: () => {
+        // socket?.disConnected();
         navigate('/stamp');
       },
     });

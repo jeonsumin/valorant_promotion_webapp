@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { img } from 'assets';
 
 type Props = {
   title?: string;
   moment?: string;
+  num?: number;
   onClick: () => void;
 };
 
 export const ClearAlert = (props: Props) => {
-  const { title, moment, onClick } = props;
+  const { title, moment, onClick,num } = props;
 
+  if(num == 9) return;
   return (
     <div className='clear_alert_dimm'>
       <div className={`clear_alert ${!moment ? 'done' : ''}`}>
@@ -19,7 +21,6 @@ export const ClearAlert = (props: Props) => {
             <div className='logo'>
               <img src={img.logo} alt='' />
             </div>
-
             <div className='txt'>
               <p className='done'>이미 모먼트 참여를 완료했습니다.</p>
             </div>
@@ -28,7 +29,7 @@ export const ClearAlert = (props: Props) => {
         ) : (
 
           <div className={'txt'}>
-            <h2 className='moment'>{`Event Zone ${moment}`}</h2>
+            <h2 className='moment'>{`Event Zone ${num}`}</h2>
             <p className='title'>{title}</p>
 
             <div className='img_box'>

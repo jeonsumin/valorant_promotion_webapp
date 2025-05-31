@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ScoreLayout } from './components/ScoreLayout';
 import { img } from 'assets/img';
-import { updateSetEvent } from 'utils/apis';
 import { useQueryParams } from 'hoc/useQueryParams';
 import { ClearAlert } from 'components/ClearAlert';
 import { getCookie } from 'utils/cookies';
@@ -39,10 +38,10 @@ export const MomentClear = () => {
 
     setSubTitle(() => {
       if (queryParams.event_name !== 'event1')
-        return `체험을 완료 했습니다! <br> 감정 리포트를 작성하고 <br>굿즈를 받아보세요.`;
+        return `체험을 완료 했습니다! <br> 감정 리포트를 작성하고 <br>굿즈를 받아 보세요.`;
 
       const isFailTitle: string = queryParams.status == '0' ? '실패' : '성공';
-      return `스파이크 해체에 ${isFailTitle}하셨습니다!<br> 감정 리포트를 작성하고 <br> 굿즈를 받아보세요.`;
+      return `스파이크 해체에 ${isFailTitle}하셨습니다!<br> 감정 리포트를 작성하고 <br> 굿즈를 받아 보세요.`;
     });
   }, []);
 

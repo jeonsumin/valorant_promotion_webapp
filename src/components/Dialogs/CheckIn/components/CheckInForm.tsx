@@ -68,7 +68,7 @@ export function CheckInForm({ onSubmit }: CheckInFormProps) {
           <label htmlFor='phone'>연락처</label>
           <div className='input_wrap'>
             <input
-              type='tel'
+              type='number'
               placeholder={'010'}
               maxLength={3}
               {...register('phone1')}
@@ -78,7 +78,7 @@ export function CheckInForm({ onSubmit }: CheckInFormProps) {
             />
             -
             <input
-              type='tel'
+              type='number'
               placeholder={'1234'}
               maxLength={4}
               {...register('phone2', {})}
@@ -88,7 +88,7 @@ export function CheckInForm({ onSubmit }: CheckInFormProps) {
             />
             -
             <input
-              type='tel'
+              type='number'
               placeholder={'5678'}
               maxLength={4}
               {...register('phone3')}
@@ -101,12 +101,17 @@ export function CheckInForm({ onSubmit }: CheckInFormProps) {
             <CheckboxField
               label='전체 동의'
               checked={watch('allChecked')}
+              className={"all-agree"}
               onChange={(e) => handleAllCheck(e.target.checked)}
+              onLabelClick={(e) => {
+                handleAllCheck(!watch('allChecked'))
+              }}
             />
             {terms.map((terms: any, index: number) => (
               <CheckboxField
                 key={`terms_${index}`}
-                label={`${terms.title}(필수)`}
+                label={`${terms.title}`}
+                regire={true}
                 checked={terms.id == 1 ? personalInfo : dataUsage}
                 className={'under'}
                 onChange={(e) =>

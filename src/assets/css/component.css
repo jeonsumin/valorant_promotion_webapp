@@ -424,6 +424,13 @@ header .close_btn {
   z-index: 100;
   background-color: #fff;
 }
+
+.full_alert .title {
+  width: 100%;
+  color: #000 !important;
+  text-align: center;
+  font-size: 20px;
+}
 .full_alert .terms_scroll {
   background: #f4f4f4;
   border-radius: 10px;
@@ -555,6 +562,13 @@ header .close_btn {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.event_con.event4_bg {
+  background-image: url(../img/moment/moment04_complete_BG.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .main_con.event3_bg {
   background-image: url(../img/moment/moment03_complete_BG.png);
 }
@@ -623,6 +637,7 @@ header .close_btn {
 }
 .score .txt {position:absolute; bottom:30px; text-align: center; line-height: 160%;}
 .experience .txt {position:absolute; bottom:110px; width: 100%; text-align: center; line-height: 160%; color:var(--moment2)}
+.experience .txt.event4 {position:absolute; bottom:110px; width: 100%; text-align: center; line-height: 160%; color:var(--moment4)}
 
 .moment1_bg.float_btn {
   background-color: var(--moment1);
@@ -636,7 +651,7 @@ header .close_btn {
   background-color: var(--moment3);
   color: var(--txt);
 }
-.moment4_bg.float_btn {
+.event4_bg .float_btn {
   background-color: var(--moment4);
   color: var(--txt);
 }

@@ -17,112 +17,58 @@ export const SocketProvider = ({ children }: { children: ReactNode }) => {
   const [isRegistered, setIsRegistered] = useState(false);
   const [messages, setMessages] = useState<any[]>([]);
   const [socketId, setSocketId] = useState(null);
-
   const [socketOnOff, setSocketOnOff] = useState(false);
 
   const socketURL = import.meta.env.VITE_APP_SOCKET_URL;
 
   useEffect(() => {
     if (socketOnOff) {
-      const newSocket = io(socketURL, {
-        transports: ['websocket'],
-        reconnection: true,
-        reconnectionAttempts: 5,
-        reconnectionDelay: 3000,
-      });
 
-      newSocket.on('connect', () => {
-        console.log('Connected to Socket.IO');
-        console.log('Socket ID:', newSocket.id);
-        setSocketId(newSocket.id);
-        setIsConnected(true);
-      });
 
-      newSocket.on('connected', (data: any) => {
-        console.log('Connection confirmed:', data);
-      });
-
-      newSocket.on('registered', (data: any) => {
-        console.log('Registered:', data);
-        setIsRegistered(data.success);
-      });
-
-      newSocket.on('unregistered', (data: any) => {
-        console.log('Unregistered:', data);
-        setIsRegistered(false);
-      });
-
-      newSocket.on('message', (data: any) => {
+      socket.on('recevemessage', (data: any) => {
         console.log('Message:', data);
         setMessages((prev) => [...prev, data]);
 
         messageEmitter.emit('websocket-message', data);
       });
 
-      newSocket.on('recevemessage', (data: any) => {
-        console.log('Message:', data);
-        setMessages((prev) => [...prev, data]);
-
-        messageEmitter.emit('websocket-message', data);
-      });
-
-
-      newSocket.on('welcome', (data: any) => {
-        console.log('Welcome message:', data);
-        setMessages((prev) => [...prev, { type: 'welcome', data }]);
-      });
-
-      newSocket.on('broadcast', (data: any) => {
-        console.log('Broadcast:', data);
-        setMessages((prev) => [...prev, { type: 'broadcast', data }]);
-      });
-
-      newSocket.on('disconnect', () => {
-        console.log('Disconnected from Socket.IO server');
-        setIsConnected(false);
-        setIsRegistered(false);
-      });
-
-      newSocket.on('reconnect_attempt', (attemptNumber: any) => {
-        console.log(`🔄 Reconnection attempt ${attemptNumber}`);
-      });
-
-      newSocket.on('reconnect', (attemptNumber: any) => {
-        console.log(`Reconnected after ${attemptNumber} attempts`);
-      });
-
-      newSocket.on('connect_error', (error: any) => {
-        console.error('Connection error:', error.message);
-      });
-
-      setSocket(newSocket);
-      return () => {
-        newSocket.disconnect();
-      };
     }
   }, [socketOnOff]);
+  const connected = (event_group) => {
+    const newSocket = io(socketURL, {
+      transports: ['websocket'],
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 3000,
+    });
 
-  const disConnect = useCallback(() => {
-    socket.disconnect();
-  }, []);
-  const onOff = useCallback(() => {
-    console.log('SOCKET ON OFF');
-    setSocketOnOff(true);
-  }, []);
+    newSocket.on('connect', () => {
+      console.log('Connected to Socket.IO');
+      console.log('Socket ID:', newSocket.id);
+      setSocketId(newSocket.id);
+      setIsConnected(true);
+      setSocketOnOff(true);
+      setSocket(newSocket);
+    });
 
-  useEffect(() => {
-    registeredUsers('experience_user', null);
-  }, [socket]);
+    newSocket.emit('register', {
+      clientType: 'experience_user',
+      eventGroup: event_group,
+      identifier: getCookie('user'),
+    });
+  };
 
-  const registeredUsers = (clientType: any, eventGroup: any) => {
+  const disConnected = () => {
+    console.log('socket Id ', socketId);
     if (socket) {
-      socket.emit('register', {
-        clientType: clientType,
-        eventGroup: eventGroup,
-        identifier: getCookie('user'),
-      });
+      console.log('socket ', socket);
+      socket.disconnect();
+      setIsConnected(false);
+      setIsRegistered(false);
+      setSocket(null);
     }
   };
+
 
   const sendMessage = (eventName: any, data: any) => {
     if (socket && socket.connected) {
@@ -166,10 +112,9 @@ export const SocketProvider = ({ children }: { children: ReactNode }) => {
         messages,
         addEventListener,
         removeEventListener,
-        registeredUsers,
         sendToUser,
-        onOff,
-        disConnect,
+        connected,
+        disConnected,
       }}
     >
       {children}

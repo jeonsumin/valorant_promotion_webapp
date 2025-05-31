@@ -272,6 +272,8 @@ export const review = {
         '기대보다 평범해서 발로란트 이미지에 대한 큰 변화는 없었다',
         '이전보다 발로란트에 대한 관심이 줄어들었다',
       ],
+      multiple: true,
+      maxSelect: 3
     },
     {
       id: 8,
@@ -286,6 +288,8 @@ export const review = {
         '기타 존 : 사격장',
         '라이엇 스토어',
       ],
+      multiple: true,
+      maxSelect: 3
     },
     {
       id: 9,
@@ -357,6 +361,8 @@ export const review = {
         '팀 데스매치',
         '프리미어',
       ],
+      multiple: true,
+      maxSelect: 3
     },
     {
       id: 17,

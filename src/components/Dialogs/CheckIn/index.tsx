@@ -1,8 +1,7 @@
-// import $axios from 'utils/axios';
 import { setCookie } from 'utils/index';
 import { useModal } from 'hoc/Context/ModalContext';
 import { CheckInForm } from './components/CheckInForm';
-import { updateUserJoin } from 'utils/apis';
+import $axios from 'utils/axios';
 
 type Props = {
   goRoute: () => void;
@@ -19,7 +18,7 @@ export const CheckIn = (props: Props) => {
   };
 
   const checkInAlreadyUser = (user: any) => {
-    updateUserJoin(user).then((response:any) => {
+    $axios.post('/user_join', { ...user }).then((response: any) => {
       setCookie('user', response.data.user_code);
       modal?.allClear();
       goRoute();
@@ -27,14 +26,12 @@ export const CheckIn = (props: Props) => {
   };
 
   const userJoin = (user: any) => {
-    updateUserJoin(user).then((response:any) => {
-
+    $axios.post('/user_join', { ...user }).then((response: any) => {
       if (response.data.code == 1) {
         modal?.showAlert({
           message: `체크인한 이력이 있습니다. 계속하시겠습니까?`,
           isCancel: true,
-          onConfirm: () =>
-            checkInAlreadyUser({ ...user, step: response.step }),
+          onConfirm: () => checkInAlreadyUser({ ...user, step: response.step }),
         });
         return;
       }
