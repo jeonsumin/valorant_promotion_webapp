@@ -44,15 +44,19 @@ export const Moment04 = () => {
               socket.connected(certParam.event_group);
               isOtpModal(String(response.data.cert_code));
             });
+        } else {
+          setIsSuccess(true);
         }
       });
+    return () => {
+      socket?.disConnected()
+    }
   }, []);
 
 
   useEffect(() => {
     const eventResult = socket?.messages;
 
-    console.log('eventResult', eventResult);
     const isExperience = eventResult.filter(
       (f: any) => f.code === 'succ'
     ).length;
@@ -64,7 +68,7 @@ export const Moment04 = () => {
 
     if (finished) {
       navigate(
-        `/event-clear?event_name=event4&status=1&result_data=${finished.result}&rank=${finished.rank}&event_group=${queryParam.event_group}`
+        `/event-clear?event_name=event4&result_data=${finished.result}&rank=111&event_group=${queryParam.event_group}`
       );
     }
   }, [socket?.messages]);

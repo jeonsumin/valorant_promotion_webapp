@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { img } from 'assets';
 
 type CountdownProps = {
   initialCount?: number; // Optional number
@@ -8,6 +9,7 @@ type CountdownProps = {
 export const Countdown = ({ initialCount = 3, onComplete }: CountdownProps) => {
   const [count, setCount] = useState<number>(initialCount ?? 3); // 초기값 안전 처리
   const circleRef = useRef<SVGCircleElement>(null);
+  const bgmRef = useRef<HTMLAudioElement>(null);
   const circumference = 2 * Math.PI * 45;
 
   useEffect(() => {
@@ -15,7 +17,9 @@ export const Countdown = ({ initialCount = 3, onComplete }: CountdownProps) => {
       const timer = setTimeout(() => {
         setCount((prev) => prev - 1);
       }, 1000);
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+      };
     } else {
       if (onComplete) onComplete();
     }
@@ -74,6 +78,7 @@ export const Countdown = ({ initialCount = 3, onComplete }: CountdownProps) => {
           {count}
         </text>
       </svg>
+      <audio ref={bgmRef} src={img.moment01bgm} preload='auto' autoPlay={true} />
     </div>
   );
 };

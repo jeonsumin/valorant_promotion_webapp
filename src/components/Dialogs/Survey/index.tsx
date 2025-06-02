@@ -6,6 +6,8 @@ import { UTILS as utils } from 'utils/utils';
 import { review, survey } from 'data/survey_data';
 import { getCookie } from 'utils/cookies';
 import $axios from 'utils/axios';
+import { Simulate } from 'react-dom/test-utils';
+import submit = Simulate.submit;
 
 type Props = {
   momentType: string;

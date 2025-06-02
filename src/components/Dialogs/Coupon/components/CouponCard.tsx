@@ -14,7 +14,14 @@ export const CouponCard = ({ coupons }: any) => {
                 <div className='cpu_num'>
                   <span>{coupons.COUPON_CODE}</span>
                 </div>
-                <button className='link_btn'>이벤트 페이지 방문하기</button>
+                <button
+                  className='link_btn'
+                  onClick={() =>
+                    (window.location.href = 'https://riot.com/4mlbi0i')
+                  }
+                >
+                  이벤트 페이지 방문하기
+                </button>
               </div>
             </div>
           </div>

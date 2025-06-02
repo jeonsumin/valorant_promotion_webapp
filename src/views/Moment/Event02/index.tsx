@@ -43,6 +43,8 @@ export const Moment02 = () => {
               socket.connected(certParam.event_group);
               isOtpModal(String(response.data.cert_code));
             });
+        } else {
+          navigate("/stamp")
         }
       });
 
@@ -82,11 +84,9 @@ export const Moment02 = () => {
   return (
     <div className={`event_con event_bg`}>
       {code == 0 && (
-        <>
           <div className={'experience'}>
             <p className='txt'>체험 중입니다</p>
           </div>
-        </>
       )}
 
       {isSuccess && (

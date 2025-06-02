@@ -757,7 +757,9 @@ header .close_btn {
 .modal_header.logo img{ width:unset;margin: 0 auto; color:var(--txt)}
 .modal_wrap .title { display: flex; width: 100%; color: var(--txtBk);justify-content: center;text-align: end; font-size: 20px}
 .modal_body {height: calc(100vh - 50px); overflow: auto; margin-top:50px;}
-.modal_body .stack_screen {height: 100%;}
+
+.modal_body .stack_screen {height: calc(100vh - 50px);overflow: auto;}
+.modal_body .stack_screen:has(.bottom_btn_wrap){height: calc(100vh - 110px);}
 
 @keyframes spin {
   0% {transform: rotate(0deg);}

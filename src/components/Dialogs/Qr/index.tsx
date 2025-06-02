@@ -1,38 +1,47 @@
-import React from 'react';
-import { QrReader } from 'react-qr-reader';
+import React, { useEffect, useRef } from 'react';
+import { Html5Qrcode } from 'html5-qrcode';
+import 'barcode-detector/side-effects';
 
-export const Qr = (props: any) => {
-  const handleScan = (text: string) => {
-    window.location.replace(text);
-  };
+type Props = {
+  onScanSuccess: (text: string) => void;
+};
+
+export const Qr = ({ onScanSuccess }: Props) => {
+  useEffect(() => {
+    const config = {
+      fps: 10,
+      qrbox: 250,
+      experimentalFeatures: {
+        useBarCodeDetectorIfSupported: true,
+      },
+    };
+
+    const qrCodeScanner = new Html5Qrcode('qr-reader');
+
+    qrCodeScanner.start(
+      {
+        facingMode: 'environment',
+      },
+
+      config,
+      (decodedText) => {
+        onScanSuccess(decodedText);
+      },
+      (errorMessage) => {
+        // 실패 시
+        console.warn('실패:', errorMessage);
+      }
+    );
+
+    return () => {
+      qrCodeScanner.stop().catch(console.error);
+    };
+  }, []);
 
   return (
-    <div className='stack_screen'>
-      <div className='content qr_screen'>
-        <div className='camera_canvas'>
-          <QrReader
-            onResult={(result, error) => {
-              if (result && typeof result !== 'string') {
-                const text = result.getText ? result.getText() : '';
-                handleScan(text);
-              }
-            }}
-            constraints={{ facingMode: 'environment' }} // 후면카메라 사용
-            containerStyle={{
-              width: '100%',
-            }}
-            videoContainerStyle={{
-              width: '100%',
-              height: '100%',
-              overflow: 'hidden',
-            }}
-            videoStyle={{
-              width: '100%',
-              height: '100%',
-            }}
-          />
-        </div>
-      </div>
+    <div>
+      <div id='qr-reader' />
     </div>
+
   );
 };

@@ -21,13 +21,19 @@ export const MomentClear = () => {
     if (queryParams.rank == null) {
       momentSet();
     }
+
+    // else {
+    //   momentCheck();
+    // }
   }, []);
 
   useEffect(() => {
-    setRank(queryParams.rank);
+    setRank(queryParams.rank !== '111' ? queryParams.rank : '');
     setTitle(() => {
-      if (queryParams.status == null)
+      if (queryParams.status == null || queryParams.event_name == 'event4') {
+
         return `<img src="${img.momentClear}" alt="clear"/>`;
+      }
 
       return queryParams.status == '0'
         ? '스파이크 해체 실패'
@@ -45,11 +51,20 @@ export const MomentClear = () => {
     });
   }, []);
 
+
+  const momentCheck = () => {
+    $axios
+      .post('/event_take_check', {
+        ...queryParams,
+        user_code: getCookie('user'),
+      }).then((response) => {
+      console.log(response.data);
+    })
+  }
   const momentSet = () => {
     $axios
       .post('event_set', { ...queryParams, user_code: getCookie('user') })
       .then((response: any) => {
-        console.log(response);
         setIsActivity(response.data.code == 1);
         setRank(response.data.rank);
       });

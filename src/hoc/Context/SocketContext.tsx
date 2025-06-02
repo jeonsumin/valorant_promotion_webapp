@@ -23,8 +23,6 @@ export const SocketProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (socketOnOff) {
-
-
       socket.on('recevemessage', (data: any) => {
         console.log('Message:', data);
         setMessages((prev) => [...prev, data]);

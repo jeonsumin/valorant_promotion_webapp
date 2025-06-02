@@ -106,16 +106,19 @@ export const StampScreen = () => {
     });
   };
 
+  const handleSuccess = (decodedText: string) => {
+    // alert('QR Result:  ' + decodedText);
+    window.location.replace(decodedText);
+  };
+
+  const handleFailure = (error: string) => {
+    console.warn('⚠️ Scan failed:', error);
+  };
+
   const openScanModal = () => {
     modal?.showModal({
       title: 'QR 코드 스캔',
-      body: (
-        <Qr
-          redirect={() => {
-            navigate('/stamp');
-          }}
-        />
-      ),
+      body: <Qr onScanSuccess={handleSuccess}/>,
     });
   };
 

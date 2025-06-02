@@ -11,8 +11,9 @@ import icnCheck from './icn/btn_check.svg';
 import onBoardIcn1 from './icn/onboard_icn_1.png';
 import onBoardIcn2 from './icn/onboard_icn_2.png';
 import onBoardIcn3 from './icn/onboard_icn_3.png';
-import onBoardIcn4 from './icn/onboard_icn_4.png';
+import onBoardIcn4 from './icn/onboard_icn_4.svg';
 import moment01Video from './moment/moment01_video_BG.mp4';
+import moment01bgm from './moment/event1_count.mp3';
 import moment01Title from './moment/moment01_title.png';
 import moment01TitleEn from './moment/moment01_title_en.png';
 import momentScroe from './moment/score.png';
@@ -22,7 +23,7 @@ import moment04Title from './moment/moment04_title.png';
 import pcviewTitle from './pc_view_title.png';
 import promotion from './promotion.png';
 import onboard_1 from './onboard_1.png';
-import instagramBg from './instagram_event.jpg';
+import instagramBg from './instagram_event.png';
 import spacial from './spacial_event.png';
 import day from './day_event.png';
 
@@ -38,6 +39,7 @@ export const img = {
   couponBg: couponBg,
   icnCheck: icnCheck,
   moment01Video: moment01Video,
+  moment01bgm: moment01bgm,
   moment01Title: moment01Title,
   moment01TitleEn: moment01TitleEn,
   momentScroe: momentScroe,

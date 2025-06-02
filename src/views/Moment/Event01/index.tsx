@@ -31,6 +31,7 @@ export const Moment01 = () => {
   useEffect(() => {
     if (isCountdownComplete && videoRef.current) {
       videoRef.current.play();
+
       setStartTime(performance.now());
 
       videoRef.current.onended = () => {

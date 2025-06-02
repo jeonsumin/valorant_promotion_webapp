@@ -376,14 +376,8 @@ button:disabled {
   justify-content: center;
 }
 
-.qr_video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  max-width: 100%;
-}
+.qr_video {}
+
 .qr_video > div {
   padding-top: 60% !important;
 }

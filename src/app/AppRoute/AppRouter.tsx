@@ -23,7 +23,6 @@ import {
   Promotion,
 } from 'views';
 import { ProtectedRoute } from './ProtectedRoute';
-import { OtpField } from 'components/Dialogs/StaffCode/components/OtpField';
 
 export const AppRouter = () => {
   const modalRef = useRef(null);
@@ -32,7 +31,6 @@ export const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         <Route path='/event01/en' element={<Event01En />} />
-
         <Route element={<OnBoarding modalRef={modalRef} />} path='/onboarding'/>
         <Route element={<Promotion />} path='/promotion' />
 

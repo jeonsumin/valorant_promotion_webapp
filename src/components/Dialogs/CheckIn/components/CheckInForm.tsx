@@ -68,7 +68,8 @@ export function CheckInForm({ onSubmit }: CheckInFormProps) {
           <label htmlFor='phone'>연락처</label>
           <div className='input_wrap'>
             <input
-              type='number'
+              type="text"
+              inputMode="numeric"
               placeholder={'010'}
               maxLength={3}
               {...register('phone1')}
@@ -78,7 +79,8 @@ export function CheckInForm({ onSubmit }: CheckInFormProps) {
             />
             -
             <input
-              type='number'
+              type="text"
+              inputMode="numeric"
               placeholder={'1234'}
               maxLength={4}
               {...register('phone2', {})}
@@ -88,10 +90,17 @@ export function CheckInForm({ onSubmit }: CheckInFormProps) {
             />
             -
             <input
-              type='number'
+              type="text"
+              inputMode="numeric"
               placeholder={'5678'}
               maxLength={4}
               {...register('phone3')}
+              onBlur={(e) => {
+                const value = e.target.value;
+                if (value.length > 4) {
+                  e.target.value = value.slice(0, 4);
+                }
+              }}
             />
           </div>
         </div>
@@ -100,6 +109,7 @@ export function CheckInForm({ onSubmit }: CheckInFormProps) {
           <div className='terms_bd'>
             <CheckboxField
               label='전체 동의'
+
               checked={watch('allChecked')}
               className={"all-agree"}
               onChange={(e) => handleAllCheck(e.target.checked)}

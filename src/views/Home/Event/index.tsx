@@ -7,7 +7,7 @@ export const EventScreen = () => {
   const openModal = (item: any) => {
     modal?.showModal({
       title: item.title,
-      body: <Event img={item.img} />,
+      body: <Event img={item.img} isBtn={item.isBtn}/>,
     });
   };
   return (

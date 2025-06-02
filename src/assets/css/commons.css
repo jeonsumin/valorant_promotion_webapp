@@ -19,9 +19,18 @@ html,
 body {
     position: relative;
     -webkit-text-size-adjust: none;
+    -webkit-overflow-scrolling: auto; /* ✅ iOS 기본 모션 비활성화 */
     box-sizing: border-box;
     word-break: keep-all;
     scroll-behavior: auto;
+}
+
+body, .container {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch; /* iOS에서 자연스러운 스크롤 */
+    overscroll-behavior: contain;      /* 바운스/새로고침 방지 */
+    touch-action: pan-y;
 }
 
 /* html, body 기본 흰배경의 사이트일때 */

@@ -20,8 +20,7 @@ export const Certification = (props: CertificationProps) => {
               ))}
             </div>
             <p>
-              인증번호를 입력하고 거치대에 핸드폰을 올려두세요! 종료되면 결과와
-              함께 화면이 자동 갱신됩니다.
+              인증번호를 입력하고 거치대에 핸드폰을 올려 두세요!<br/> 종료되면 결과와 함께 화면에 자동 갱신됩니다.
             </p>
           </div>
         </div>
