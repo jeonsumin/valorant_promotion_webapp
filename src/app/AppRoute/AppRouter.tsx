@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import { useRef } from 'react';
 import {
-  Event01En,
+  Event01En, Event01Test,
   Moment01,
   Moment02,
   Moment04,
@@ -31,6 +31,7 @@ export const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         <Route path='/event01/en' element={<Event01En />} />
+        {/*<Route path='/event01/test' element={<Event01Test />} />*/}
         <Route element={<OnBoarding modalRef={modalRef} />} path='/onboarding'/>
         <Route element={<Promotion />} path='/promotion' />
 

@@ -1,5 +1,6 @@
 export * from './Event01'
 export * from './Event01-en'
+export * from './Event01-test'
 export * from './Event02'
 export * from './Event04'
 export * from './EventSuccess'
